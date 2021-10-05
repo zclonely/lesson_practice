@@ -57,7 +57,7 @@ func main() {
 	glog.V(0).Info("Starting http server...")
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/healthz", healthHandler)
-	err := http.ListenAndServe(":80", nil)
+	err := http.ListenAndServe(":81", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
