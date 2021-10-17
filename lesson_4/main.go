@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"lesson_practice/lesson_4/util"
 	"log"
 	"net/http"
@@ -45,7 +46,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	wc.Header().Add("Response_Header_VERSION", version)
 	ip := util.GetIP(r)
 	glog.V(0).Info(fmt.Sprintf("IP: %s, statuscode: %d", ip, wc.statusCode))
-
+	io.WriteString(wc, "hello！")
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +58,7 @@ func main() {
 	glog.V(0).Info("Starting http server...")
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/healthz", healthHandler)
-	err := http.ListenAndServe(":81", nil)
+	err := http.ListenAndServe(":80", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
